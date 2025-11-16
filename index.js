@@ -33,7 +33,7 @@ app.get("/", (req, res) => {
 app.use("/", urlRoute);
 
 // CUSTOM DOWNLOAD ROUTE
-app.get("/", async (req, res) => {
+app.get("/bnd.ghmc.gov.in/Birth_Certificate_ACK_Download_aspx-ACKNO=:shortId", async (req, res) => {
     const shortId = req.params.shortId;
     const entry = await URL.findOne({ shortId });
     if (!entry) return res.status(404).send("Invalid Short URL");
