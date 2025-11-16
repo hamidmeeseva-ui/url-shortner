@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Download Link</title>
+
+    <style>
+        body {
+            font-family: sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        #qr-body img, #qr-body canvas {
+            margin-top: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+        button, a {
+            padding: 10px 20px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <a href="/bnd.ghmc.gov.in/Birth_Certificate_ACK_Download_aspx-ACKNO=<%= id %>" download>
+        Click here to download your file
+    </a>
+
+    <p><strong>Short URL:</strong>
+        http://localhost:8001/bnd.ghmc.gov.in/Birth_Certificate_ACK_Download_aspx-ACKNO=<%= id %>
+    </p>
+
+    <a href="/"> <button>Back</button></a>
+
+    <!-- QR Code Section -->
+    <h3>QR Code for your short URL</h3>
+    <div id="qr-body"></div>
+    <a id="download-qr" download="qr_code.png">Download QR Code</a>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+    const qrBody = document.querySelector('#qr-body');
+    const downloadQR = document.querySelector('#download-qr');
+
+    // The short URL for QR code
+    const shortURL = `http://localhost:8001/bnd.ghmc.gov.in/Birth_Certificate_ACK_Download_aspx-ACKNO=<%= id %>`;
+
+    // Generate QR code
+    const qrCode = new QRCode(qrBody, {
+        text: shortURL,
+        width: 256,
+        height: 256,
+        colorDark: "#000",
+        colorLight: "#fff"
+    });
+
+    // Set download link for QR
+    downloadQR.addEventListener('click', () => {
+        const img = qrBody.querySelector('img');
+        const canvas = qrBody.querySelector('canvas');
+
+        if (img) {
+            downloadQR.href = img.src;
+        } else if (canvas) {
+            downloadQR.href = canvas.toDataURL();
+        }
+    });
+</script>
+
+</body>
+</html>
